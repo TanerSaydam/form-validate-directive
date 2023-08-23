@@ -12,11 +12,9 @@ export class FormValidateDirective {
   ) { }
 
 
-  @HostListener("keyup") keyup(){
-    this.checkValidation();
-  }
-
-  @HostListener("submit") submit(){
+  @HostListener("keyup", ["$event"])
+  @HostListener("submit", ["$event"])
+  keyupOrSubmit(event: KeyboardEvent){
     this.checkValidation();
   }
 
@@ -44,5 +42,4 @@ export class FormValidateDirective {
       }
     }
   }
-
 }
