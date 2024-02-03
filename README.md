@@ -72,9 +72,11 @@ export class FormValidateDirective {
   ) { }
 
 
-  @HostListener("keyup", ["$event"])
-  @HostListener("submit", ["$event"])
-  keyupOrSubmit(event: KeyboardEvent){
+  @HostListener("keyup") keyup(){
+    this.checkValidation();
+  }
+
+  @HostListener("submit") submit(){
     this.checkValidation();
   }
 
@@ -94,9 +96,9 @@ export class FormValidateDirective {
              divEl.innerHTML = childElement.validationMessage;
           
           childElement.classList.add("is-invalid");
-          childElement.classList.remove("is-valid");
+          //childElement.classList.remove("is-valid");
          }else{          
-          childElement.classList.add("is-valid");
+          //childElement.classList.add("is-valid");
           childElement.classList.remove("is-invalid");
          }
       }

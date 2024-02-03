@@ -34,9 +34,9 @@ export class FormValidateDirective {
              divEl.innerHTML = childElement.validationMessage;
           
           childElement.classList.add("is-invalid");
-          childElement.classList.remove("is-valid");
+          //childElement.classList.remove("is-valid");
          }else{          
-          childElement.classList.add("is-valid");
+          //childElement.classList.add("is-valid");
           childElement.classList.remove("is-invalid");
          }
       }
