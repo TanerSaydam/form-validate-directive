@@ -14,6 +14,7 @@ export class FormValidateDirective {
 
   @HostListener("keyup", ["$event"])
   @HostListener("submit", ["$event"])
+  @HostListener("change", ["$event"])
   keyupOrSubmit(event: KeyboardEvent){
     this.checkValidation();
   }
