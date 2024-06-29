@@ -6,39 +6,53 @@ import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 })
 export class FormValidateDirective {
 
-  @Input("customValidateMessage") customValidateMessage: boolean = true;
+  @Input("autoValidateMessage") autoValidateMessage: boolean = false;
+
   constructor(
     private el: ElementRef<HTMLFormElement>
   ) { }
+  
+  @HostListener('keyup', ['$event'])
+  @HostListener('change', ['$event'])
+  handleInputEvent(event: Event) {
+    const target = event.target as HTMLInputElement;
+    this.checkValidation(target);
+  }
 
-  @HostListener("keyup", ["$event"])
-  @HostListener("submit", ["$event"])
-  @HostListener("change", ["$event"])
-  keyupOrSubmit(event: KeyboardEvent){
+  @HostListener('submit', ['$event'])
+  handleSubmitEvent(event: Event) {
     this.checkValidation();
   }
 
-  checkValidation(){
-    for(let child in this.el.nativeElement.elements){
-      const childElement:any = this.el.nativeElement.elements[child]      
-      if(childElement.validity !== undefined){
-          const elName:any = "[name=" + childElement.name + "] + div";          
-          let divEl : any;
-          
-          if(childElement.name !== ""){   
-            divEl = document.querySelector(elName);
-          }         
-          
-         if(!childElement.validity.valid){   
-           if(this.customValidateMessage && divEl !== null)      
-             divEl.innerHTML = childElement.validationMessage;
-          
-          childElement.classList.add("is-invalid");
-          //childElement.classList.remove("is-valid");
-         }else{          
-          //childElement.classList.add("is-valid");
-          childElement.classList.remove("is-invalid");
-         }
+  private checkValidation(target?: HTMLInputElement) {
+    if (target) {
+      this.validateElement(target);
+    } else {
+      // Form submit edildiğinde tüm form elemanlarını kontrol eder
+      for (let i = 0; i < this.el.nativeElement.elements.length; i++) {
+        const childElement = this.el.nativeElement.elements[i] as HTMLInputElement;
+        this.validateElement(childElement);
+      }
+    }
+  }
+
+  private validateElement(element: HTMLInputElement) {
+    if (element.validity !== undefined) {
+      const elName = `[name=${element.name}] + div`;
+      let divEl: any;
+
+      if (element.name !== '') {
+        divEl = document.querySelector(elName);
+      }
+
+      if (!element.validity.valid) {
+        if(this.autoValidateMessage && divEl !== null){
+          divEl.innerHTML = element.validationMessage;
+        }
+                
+        element.classList.add('is-invalid');
+      } else {
+        element.classList.remove('is-invalid');
       }
     }
   }
