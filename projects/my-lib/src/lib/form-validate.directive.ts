@@ -11,7 +11,6 @@ export class FormValidateDirective {
     private el: ElementRef<HTMLFormElement>
   ) { }
 
-
   @HostListener("keyup", ["$event"])
   @HostListener("submit", ["$event"])
   @HostListener("change", ["$event"])
