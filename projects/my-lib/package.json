@@ -1,15 +1,15 @@
 {
   "name": "form-validate-angular",
-  "version": "19.0.1",
+  "version": "20.0.0",
   "repository": {
     "url": "https://github.com/TanerSaydam/form-validate-directive"
   },
   "peerDependencies": {
-    "@angular/common": "^19.0.0",
-    "@angular/core": "^19.0.0"
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0"
   },
   "dependencies": {
-    "tslib": "^2.3.0"
+    "tslib": "^2.8.1"
   },
   "sideEffects": false
 }
